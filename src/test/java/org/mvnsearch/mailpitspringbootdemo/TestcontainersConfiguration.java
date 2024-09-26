@@ -16,9 +16,12 @@ import org.testcontainers.containers.GenericContainer;
 class TestcontainersConfiguration {
     @Bean
     public GenericContainer<?> mailpit(DynamicPropertyRegistry properties) {
-        GenericContainer<?> mailpit = new GenericContainer<>("axllent/mailpit:v1.20.4").withExposedPorts(1025, 8025);
+        GenericContainer<?> mailpit = new GenericContainer<>("axllent/mailpit:v1.20.4")
+                //.waitingFor(Wait.forLogMessage(".*accessible.*", 1))
+                .withExposedPorts(1025, 8025);
         properties.add("spring.mail.host", mailpit::getHost);
         properties.add("spring.mail.port", () -> mailpit.getMappedPort(1025).toString());
+        properties.add("mailpit.web.port", () -> mailpit.getMappedPort(8025));
         return mailpit;
     }
 
@@ -26,8 +29,8 @@ class TestcontainersConfiguration {
     @DependsOn("mailpit")
     public MailpitClient mailpitClient(Environment environment) {
         String host = environment.getProperty("spring.mail.host");
-        String port = environment.getProperty("spring.mail.port");
-        String httpBaseUrl = "http://" + host + ":" + port;
+        String webPort = environment.getProperty("mailpit.web.port");
+        String httpBaseUrl = "http://" + host + ":" + webPort;
         RestClient restClient = RestClient.builder().baseUrl(httpBaseUrl).build();
         RestClientAdapter adapter = RestClientAdapter.create(restClient);
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
