@@ -12,7 +12,6 @@ automated integration testing.
 
 ```java
 
-@HttpExchange("http://localhost:8025")
 public interface MailpitClient {
 
     record MailAddress(@JsonProperty("Name") String name, @JsonProperty("Address") String address) {
