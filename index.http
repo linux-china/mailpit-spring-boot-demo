@@ -1,0 +1,13 @@
+### Send email
+POST http://localhost:8080/send-email
+Content-Type: application/json
+
+{
+  "from": "Jackie@example.com",
+  "to": "linux_china@hotmail.com",
+  "subject": "Hello",
+  "body": "Hello, this is a test email"
+}
+
+### mailpit api
+GET http://localhost:8025/api/v1/messages
