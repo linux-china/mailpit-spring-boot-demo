@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * mail sender test
  *
@@ -14,6 +16,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 public class MailSenderTest extends TestcontainersBaseTest {
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private MailpitClient mailpitClient;
 
     @Test
     public void testSendEmail() throws Exception {
@@ -30,5 +34,6 @@ public class MailSenderTest extends TestcontainersBaseTest {
         message.setSubject("Test email");
         message.setText(content, true);
         mailSender.send(message.getMimeMessage());
+        assertThat(mailpitClient.listMessages().total()).isGreaterThan(0);
     }
 }
