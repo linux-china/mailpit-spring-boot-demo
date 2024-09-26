@@ -16,7 +16,7 @@ public class MailpitTest {
 
     @BeforeAll
     public static void setUp() {
-        RestClient restClient = RestClient.builder().build();
+        RestClient restClient = RestClient.builder().baseUrl("http://localhost:8025").build();
         RestClientAdapter adapter = RestClientAdapter.create(restClient);
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
         mailpitClient = factory.createClient(MailpitClient.class);
