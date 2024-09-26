@@ -9,5 +9,25 @@ Content-Type: application/json
   "body": "Hello, this is a test email"
 }
 
-### mailpit api
+### mailpit list messages
 GET http://localhost:8025/api/v1/messages
+
+### mailpit send mail
+POST http://localhost:8025/api/v1/send
+Content-Type: application/json
+
+{
+  "From": {
+    "Email": "john@example.com",
+    "Name": "John Doe"
+  },
+  "To": [
+    {
+      "Email": "jane@example.com",
+      "Name": "Jane Doe"
+    }
+  ],
+  "Subject": "Mailpit message via the HTTP API",
+  "Text": "This is the text body",
+  "HTML": "<p style=\"font-family: arial\">Mailpit is <b>awesome</b>!</p>"
+}
