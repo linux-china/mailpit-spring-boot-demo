@@ -1,4 +1,4 @@
-mailpit Spring Boot demo
+Mailpit Spring Boot demo
 ===========================
 
 Mailpit - email & SMTP testing tool with API for developers.
