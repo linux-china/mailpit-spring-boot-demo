@@ -1,10 +1,13 @@
 package org.mvnsearch.mailpitspringbootdemo;
 
 import org.mvnsearch.mailpitspringbootdemo.mail.MailpitClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
@@ -14,6 +17,8 @@ import org.testcontainers.containers.GenericContainer;
 @TestConfiguration(proxyBeanMethods = false)
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 class TestcontainersConfiguration {
+    private static final Logger log = LoggerFactory.getLogger(TestcontainersConfiguration.class);
+
     @Bean
     public GenericContainer<?> mailpit(DynamicPropertyRegistry properties) {
         GenericContainer<?> mailpit = new GenericContainer<>("axllent/mailpit:v1.20.4")
@@ -26,10 +31,15 @@ class TestcontainersConfiguration {
     }
 
     @Bean
+    public ApplicationRunner logMailpitWebPort(@Value("${spring.mail.host}") String host,
+                                               @Value("${mailpit.web.port}") int port) {
+        return args -> log.info("Mailpit Web Interface http://{}:{}", host, port);
+    }
+
+    @Bean
     @DependsOn("mailpit")
-    public MailpitClient mailpitClient(Environment environment) {
-        String host = environment.getProperty("spring.mail.host");
-        String webPort = environment.getProperty("mailpit.web.port");
+    public MailpitClient mailpitClient(@Value("${spring.mail.host}") String host,
+                                       @Value("${mailpit.web.port}") int webPort) {
         String httpBaseUrl = "http://" + host + ":" + webPort;
         RestClient restClient = RestClient.builder().baseUrl(httpBaseUrl).build();
         RestClientAdapter adapter = RestClientAdapter.create(restClient);
