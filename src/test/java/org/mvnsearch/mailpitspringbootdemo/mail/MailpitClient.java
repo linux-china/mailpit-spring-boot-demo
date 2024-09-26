@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author linux_china
  */
-@HttpExchange("http://localhost:8025")
+@HttpExchange
 public interface MailpitClient {
 
     record MailAddress(@JsonProperty("Name") String name, @JsonProperty("Address") String address) {
@@ -30,6 +30,7 @@ public interface MailpitClient {
                    String Snippet) {
 
     }
+
     @JsonIgnoreProperties(ignoreUnknown = true)
     record MessagesResponse(Integer total, List<Message> messages) {
     }
