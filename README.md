@@ -48,4 +48,5 @@ public interface MailpitClient {
 
 * Mailpit: email testing for developers - https://mailpit.axllent.org/
 * Using Mailpit with Spring Boot: https://dimitri.codes/spring-boot-mailpit/
+* [Docker Mailserver](https://github.com/docker-mailserver/docker-mailserver): Production-ready fullstack but simple mail server (SMTP, IMAP, LDAP, Antispam, Antivirus, etc.) running inside a container.
 
