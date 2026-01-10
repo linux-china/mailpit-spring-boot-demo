@@ -17,7 +17,7 @@ automated integration testing.
 
 ```java
 
-public interface MailpitClient {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;import com.fasterxml.jackson.annotation.JsonProperty;import org.springframework.web.service.annotation.GetExchange;import java.util.List;public interface MailpitClient {
 
     record MailAddress(@JsonProperty("Name") String name, @JsonProperty("Address") String address) {
     }
@@ -47,6 +47,7 @@ public interface MailpitClient {
 # References
 
 * Mailpit: email testing for developers - https://mailpit.axllent.org/
+* [testcontainers-mailpit](https://github.com/martinellich/testcontainers-mailpit): A Testcontainers module for Mailpit - an email and SMTP testing tool with API for developers.
 * Using Mailpit with Spring Boot: https://dimitri.codes/spring-boot-mailpit/
 * [Docker Mailserver](https://github.com/docker-mailserver/docker-mailserver): Production-ready fullstack but simple mail server (SMTP, IMAP, LDAP, Antispam, Antivirus, etc.) running inside a container.
 
