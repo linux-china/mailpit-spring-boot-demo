@@ -50,4 +50,5 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;import com.fasterxm
 * [testcontainers-mailpit](https://github.com/martinellich/testcontainers-mailpit): A Testcontainers module for Mailpit - an email and SMTP testing tool with API for developers.
 * Using Mailpit with Spring Boot: https://dimitri.codes/spring-boot-mailpit/
 * [Docker Mailserver](https://github.com/docker-mailserver/docker-mailserver): Production-ready fullstack but simple mail server (SMTP, IMAP, LDAP, Antispam, Antivirus, etc.) running inside a container.
+* Testing Emails with Testcontainers and Mailpit: https://foojay.io/today/testing-emails-with-testcontainers-and-mailpit/
 
