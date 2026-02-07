@@ -15,7 +15,7 @@ class TestcontainersConfiguration {
     @Bean
     @ServiceConnection
     MailpitContainer mailpitContainer() {
-        return new MailpitContainer(DockerImageName.parse("axllent/mailpit:v1.28"));
+        return new MailpitContainer(DockerImageName.parse("axllent/mailpit:v1.29"));
     }
 
 }
